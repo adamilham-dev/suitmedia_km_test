@@ -130,6 +130,7 @@ class _PageFirstState extends State<PageFirst> {
                             middleTextStyle: TextStyle(color: Colors.black),
                             textConfirm: 'Close',
                             confirmTextColor: Colors.white,
+                            backgroundColor: Colors.green[700],
                             onConfirm: () {
                               Get.back();
                             },
