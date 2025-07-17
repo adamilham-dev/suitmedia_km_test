@@ -125,7 +125,7 @@ class _PageFirstState extends State<PageFirst> {
                         if (isPalindrome(palindrome)) {
                           Get.defaultDialog(
                             title: 'Result',
-                            middleText: '"$palindrome" is a palindrome',
+                            middleText: 'is palindrome',
                             titleStyle: TextStyle(color: Colors.black),
                             middleTextStyle: TextStyle(color: Colors.black),
                             textConfirm: 'Close',
@@ -137,7 +137,7 @@ class _PageFirstState extends State<PageFirst> {
                         } else {
                           Get.defaultDialog(
                             title: 'Result',
-                            middleText: '"$palindrome" is not a palindrome',
+                            middleText: 'not palindrome',
                             titleStyle: TextStyle(color: Colors.white),
                             middleTextStyle: TextStyle(color: Colors.white),
                             backgroundColor: Colors.red[900],
