@@ -48,7 +48,10 @@ class _PageThirdState extends State<PageThird> {
             ),
             subtitle: Text(_data[index]['email']),
             onTap: () {
-              GetStorage().write('selected', _data[index]['first_name']);
+              GetStorage().write(
+                'selected',
+                '${_data[index]['first_name']} ${_data[index]['last_name']}',
+              );
               Get.to(() => PageSecond());
             },
           );
