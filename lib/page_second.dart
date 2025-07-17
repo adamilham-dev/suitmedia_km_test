@@ -71,6 +71,9 @@ class _PageSecondState extends State<PageSecond> {
                   child: ElevatedButton(
                     onPressed: () {
                       Get.to(() => PageThird());
+                      setState(() {
+                        _selected = GetStorage().read("selected") ?? "Selected User Name";
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF2B637B),
