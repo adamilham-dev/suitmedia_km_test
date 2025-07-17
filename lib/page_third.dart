@@ -7,7 +7,7 @@ class PageThird extends StatefulWidget {
   const PageThird({super.key});
 
   @override
-  _PageThirdState createState() => _PageThirdState();
+  State<PageThird> createState() => _PageThirdState();
 }
 
 class _PageThirdState extends State<PageThird> {
