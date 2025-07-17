@@ -35,7 +35,7 @@ class _PageThirdState extends State<PageThird> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Third Page')),
+      appBar: AppBar(title: Text('Third Page'), centerTitle: true),
       body: ListView.builder(
         itemCount: _data.length,
         itemBuilder: (context, index) {
