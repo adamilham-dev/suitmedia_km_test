@@ -70,7 +70,7 @@ class _PageSecondState extends State<PageSecond> {
                   width: double.maxFinite,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(() => PageThird());
+                      await Get.to(() => PageThird());
                       setState(() {
                         _selected = GetStorage().read("selected") ?? "Selected User Name";
                       });
