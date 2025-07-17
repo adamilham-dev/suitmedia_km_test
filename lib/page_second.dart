@@ -69,7 +69,7 @@ class _PageSecondState extends State<PageSecond> {
                 child: SizedBox(
                   width: double.maxFinite,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       await Get.to(() => PageThird());
                       setState(() {
                         _selected = GetStorage().read("selected") ?? "Selected User Name";
