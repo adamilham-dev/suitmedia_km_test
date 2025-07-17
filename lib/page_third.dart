@@ -37,7 +37,7 @@ class _PageThirdState extends State<PageThird> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Third Page',
+          'Third Screen',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,

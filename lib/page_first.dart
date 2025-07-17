@@ -125,7 +125,7 @@ class _PageFirstState extends State<PageFirst> {
                         if (isPalindrome(palindrome)) {
                           Get.defaultDialog(
                             title: 'Result',
-                            middleText: 'is palindrome',
+                            middleText: 'isPalindrome',
                             titleStyle: TextStyle(color: Colors.white),
                             middleTextStyle: TextStyle(color: Colors.white),
                             textConfirm: 'Close',

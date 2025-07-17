@@ -46,11 +46,22 @@ class _PageSecondState extends State<PageSecond> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Welcome"),
-                  Text(_name, style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(
+                    _name,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
                 ],
               ),
             ),
-            Flexible(flex: 1, child: Center(child: Text(_selected))),
+            Flexible(
+              flex: 1,
+              child: Center(
+                child: Text(
+                  _selected,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                ),
+              ),
+            ),
             Flexible(
               flex: 1,
               child: Align(
