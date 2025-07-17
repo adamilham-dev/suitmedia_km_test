@@ -186,10 +186,6 @@ class _PageFirstState extends State<PageFirst> {
                         () => PageSecond(),
                         transition: Transition.rightToLeft,
                       );
-                      Get.to(
-                        () => PageSecond(),
-                        transition: Transition.rightToLeft,
-                      );
                       GetStorage().write('name', _name.text);
                     },
                     style: ElevatedButton.styleFrom(

@@ -26,16 +26,22 @@ class _PageThirdState extends State<PageThird> {
         "https://reqres.in/api/users",
       );
       _data = response.data['data'];
+      setState(() {});
     } catch (e) {
       print(e);
     }
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Third Page'), centerTitle: true),
+      appBar: AppBar(
+        title: Text(
+          'Third Page',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
       body: ListView.builder(
         itemCount: _data.length,
         itemBuilder: (context, index) {
@@ -45,6 +51,7 @@ class _PageThirdState extends State<PageThird> {
             ),
             title: Text(
               '${_data[index]['first_name']} ${_data[index]['last_name']}',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
             subtitle: Text(_data[index]['email']),
             onTap: () {

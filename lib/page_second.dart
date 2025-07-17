@@ -28,7 +28,13 @@ class _PageSecondState extends State<PageSecond> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Second Screen'), centerTitle: true),
+      appBar: AppBar(
+        title: Text(
+          'Second Screen',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         padding: EdgeInsets.all(20),
         child: Column(
