@@ -1,16 +1,53 @@
-# myapp
+# flutter_km_test
 
-A new Flutter project.
+Aplikasi Flutter sesuai technical test Suitmedia, terdiri dari 3 halaman utama.  
+Dibangun dengan **Flutter v3.32+** dan state management **GetX**.
 
-## Getting Started
+## Demo
 
-This project is a starting point for a Flutter application.
+Cek Demo Aplikasi [disini](https://drive.google.com/file/d/1Bhwl6fq6HQULDGRWfK6qo1q-o-W-gqsO/view?usp=sharing)
 
-A few resources to get you started if this is your first Flutter project:
+## Fitur Aplikasi
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. **Halaman Pertama**
+    - Input nama dan kalimat untuk dicek palindrome.
+    - Tombol **Check** untuk validasi palindrome (dialog notifikasi hasil).
+    - Tombol **Next** untuk pindah ke halaman kedua.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. **Halaman Kedua**
+    - Menampilkan teks "Welcome".
+    - Menampilkan nama (dari halaman pertama) dan nama user terpilih.
+    - Tombol **Choose a User** untuk menuju halaman ketiga.
+
+3. **Halaman Ketiga**
+    - Menampilkan list user dari API [reqres.in](https://reqres.in/api/users).
+    - Fitur **pagination** (load next page saat scroll ke bawah).
+    - **Pull-to-refresh** & empty state jika data kosong.
+    - Klik user akan kembali ke halaman kedua dan menampilkan nama user terpilih.
+
+## Tech Stack
+
+- **Flutter** >=3.32.0
+- **GetX** (State Management)
+- **Dio** (HTTP request)
+- **Android** min SDK 21, target SDK 34
+- **iOS** min iOS 15
+
+## Instalasi
+
+1. Clone repo:
+    ```bash
+    git clone https://github.com/adamilham-dev/flutter_km_test.git
+    cd flutter_km_test
+    ```
+2. Install dependencies:
+    ```bash
+    flutter pub get
+    ```
+3. Jalankan aplikasi:
+    ```bash
+    flutter run
+    ```
+
+## Struktur Folder
+
