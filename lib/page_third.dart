@@ -25,12 +25,11 @@ class _PageThirdState extends State<PageThird> {
       dio.Response response = await dio.Dio().get(
         "https://reqres.in/api/users",
       );
-      setState(() {
-        _data = response.data['data'];
-      });
+      _data = response.data['data'];
     } catch (e) {
       print(e);
     }
+    setState(() {});
   }
 
   @override
