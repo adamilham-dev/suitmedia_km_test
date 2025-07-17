@@ -84,7 +84,7 @@ class _PageThirdState extends State<PageThird> {
   }
 
   Widget _buildEmptyState() {
-    return ListView();
+    return Container();
   }
 
   @override
