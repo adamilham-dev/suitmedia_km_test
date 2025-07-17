@@ -126,11 +126,11 @@ class _PageFirstState extends State<PageFirst> {
                           Get.defaultDialog(
                             title: 'Result',
                             middleText: 'is palindrome',
-                            titleStyle: TextStyle(color: Colors.black),
-                            middleTextStyle: TextStyle(color: Colors.black),
+                            titleStyle: TextStyle(color: Colors.white),
+                            middleTextStyle: TextStyle(color: Colors.white),
                             textConfirm: 'Close',
                             confirmTextColor: Colors.white,
-                            backgroundColor: Colors.green[700],
+                            backgroundColor: Colors.green[800],
                             onConfirm: () {
                               Get.back();
                             },
