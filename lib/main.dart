@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'KM TEST',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: 'poppins',
       ),
       home: const PageFirst(),
       debugShowCheckedModeBanner: false,
