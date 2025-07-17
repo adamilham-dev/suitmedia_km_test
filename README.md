@@ -1,4 +1,4 @@
-# flutter_km_test
+# Jawaban Tes Suitmedia Untuk No.1
 
 Aplikasi Flutter sesuai technical test Suitmedia, terdiri dari 3 halaman utama.  
 Dibangun dengan **Flutter v3.32+** dan state management **GetX**.
