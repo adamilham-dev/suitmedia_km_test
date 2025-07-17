@@ -2,7 +2,6 @@ import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:myapp/page_second.dart';
 
 class PageThird extends StatefulWidget {
   const PageThird({super.key});
@@ -14,10 +13,11 @@ class PageThird extends StatefulWidget {
 class _PageThirdState extends State<PageThird> {
   List<dynamic> _data = [];
   int _page = 1;
-  final int _perPage = 10;
+  int _totalPages = 2;
   bool _isLoading = false;
   bool _isLastPage = false;
   final ScrollController _scrollController = ScrollController();
+  String? _error;
 
   @override
   void initState() {
@@ -28,53 +28,52 @@ class _PageThirdState extends State<PageThird> {
       if (_scrollController.position.pixels >=
               _scrollController.position.maxScrollExtent - 200 &&
           !_isLoading &&
-          !_isLastPage) {
+          !_isLastPage &&
+          _data.isNotEmpty) {
         _fetchData();
       }
     });
   }
 
-  Future<void> _fetchData({bool initial = false, bool refresh = false}) async {
+  Future<void> _fetchData({bool initial = false}) async {
     if (_isLoading) return;
     setState(() {
       _isLoading = true;
-      if (refresh || initial) {
-        _isLastPage = false;
-        _page = 1;
-      }
+      if (initial) _error = null;
     });
-
     try {
+      final currentPage = initial ? 1 : _page + 1;
       dio.Response response = await dio.Dio().get(
         "https://reqres.in/api/users",
-        queryParameters: {
-          "page": _page,
-          "per_page": _perPage,
-        },
+        queryParameters: {"page": currentPage},
       );
-      List<dynamic> users = response.data['data'];
-      int totalPages = response.data['total_pages'];
-
+      final List<dynamic> newData = response.data['data'];
+      _totalPages = response.data['total_pages'];
       setState(() {
-        if (refresh || initial) {
-          _data = users;
+        if (initial) {
+          _data = newData;
+          _page = 1;
         } else {
-          _data.addAll(users);
+          _data.addAll(newData);
+          _page = currentPage;
         }
-        _isLastPage = _page >= totalPages || users.isEmpty;
-        if (!_isLastPage) _page++;
+        _isLastPage = _page >= _totalPages;
+        _isLoading = false;
+        _error = null;
       });
     } catch (e) {
-      print(e);
-    } finally {
       setState(() {
         _isLoading = false;
+        _error = "Failed to load users.";
       });
     }
   }
 
-  Future<void> _onRefresh() async {
-    await _fetchData(refresh: true);
+  Future<void> _refresh() async {
+    setState(() {
+      _isLastPage = false;
+    });
+    await _fetchData(initial: true);
   }
 
   @override
@@ -83,8 +82,70 @@ class _PageThirdState extends State<PageThird> {
     super.dispose();
   }
 
-  Widget _buildEmptyState() {
-    return Container();
+  Widget _buildList() {
+    if (_error != null) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(_error!, style: TextStyle(color: Colors.red)),
+            SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: _refresh,
+              child: Text("Retry"),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (_data.isEmpty && !_isLoading) {
+      return ListView(
+        physics: AlwaysScrollableScrollPhysics(),
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.7,
+            alignment: Alignment.center,
+            child: Text(
+              "No users found.",
+              style: TextStyle(color: Colors.grey, fontSize: 18),
+            ),
+          ),
+        ],
+      );
+    }
+
+    return ListView.builder(
+      controller: _scrollController,
+      itemCount: _data.length + (_isLastPage ? 0 : 1),
+      itemBuilder: (context, index) {
+        if (index < _data.length) {
+          final user = _data[index];
+          return ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(user['avatar']),
+            ),
+            title: Text(
+              '${user['first_name']} ${user['last_name']}',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(user['email']),
+            onTap: () {
+              GetStorage().write(
+                'selected',
+                '${user['first_name']} ${user['last_name']}',
+              );
+              Get.back();
+            },
+          );
+        } else {
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -98,39 +159,8 @@ class _PageThirdState extends State<PageThird> {
         centerTitle: true,
       ),
       body: RefreshIndicator(
-        onRefresh: _onRefresh,
-        child: _data.isEmpty && !_isLoading
-            ? _buildEmptyState()
-            : ListView.builder(
-                controller: _scrollController,
-                itemCount: _data.length + (_isLastPage ? 0 : 1),
-                itemBuilder: (context, index) {
-                  if (index < _data.length) {
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(_data[index]['avatar']),
-                      ),
-                      title: Text(
-                        '${_data[index]['first_name']} ${_data[index]['last_name']}',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(_data[index]['email']),
-                      onTap: () {
-                        GetStorage().write(
-                          'selected',
-                          '${_data[index]['first_name']} ${_data[index]['last_name']}',
-                        );
-                        Get.to(() => PageSecond());
-                      },
-                    );
-                  } else {
-                    return Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                  }
-                },
-              ),
+        onRefresh: _refresh,
+        child: _buildList(),
       ),
     );
   }
